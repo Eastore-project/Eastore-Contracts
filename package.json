@@ -1,7 +1,8 @@
 {
     "scripts": {
         "deploy": "node scripts/runDeploy",
-        "execute": "node scripts/runExecute"
+        "execute": "node scripts/runExecute",
+        "build": "npx hardhat clean && npx hardhat compile"
     },
     "devDependencies": {
         "hardhat": "^2.17.3",
@@ -13,9 +14,10 @@
         "solidity-coverage": "^0.8.4"
     },
     "dependencies": {
-        "@axelar-network/axelar-gmp-sdk-solidity": "^5.3.1",
-        "@axelar-network/axelar-local-dev": "^2.1.1",
-        "@axelar-network/axelarjs-sdk": "^0.13.6",
+        "@axelar-network/axelar-chains-config": "^0.1.0",
+        "@axelar-network/axelar-gmp-sdk-solidity": "^5.4.0",
+        "@axelar-network/axelar-local-dev": "^2.1.1-alpha.2",
+        "@axelar-network/axelarjs-sdk": "^0.12.8",
         "@openzeppelin/contracts": "^4.9.3",
         "@zondax/filecoin-solidity": "^4.0.3",
         "cids": "^1.1.9",

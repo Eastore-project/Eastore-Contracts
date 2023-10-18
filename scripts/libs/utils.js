@@ -35,7 +35,8 @@ function getEVMChains(env, chains = []) {
 
     return testnet.map((chain) => ({
         ...chain,
-        gasService: chain.AxelarGasService.address,
+        gateway: chain.contracts.AxelarGateway.address,
+        gasService: chain.contracts.AxelarGasService.address,
     }));
 }
 
@@ -48,17 +49,25 @@ function getTestnetChains(chains = []) {
     const _path = path.join(__dirname, '../../chain-config/testnet.json');
     const _path_fil = path.join(__dirname, '../../chain-config-filecoin/testnet.json');
     let testnet = [];
-    if (!chains.includes('Filecoin')) {
+    if (!chains.includes('Filecoin') && fs.existsSync(_path)) {
         testnet = fs.readJsonSync(_path).filter((chain) => chains.includes(chain.name));
     } else {
-        if (fs.existsSync(_path)) {
+        if (fs.existsSync(_path) && fs.existsSync(_path_fil)) {
             testnet = fs.readJsonSync(_path).filter((chain) => chains.includes(chain.name));
             testnet.push(...fs.readJsonSync(_path_fil).filter((chain) => chains.includes(chain.name)));
         }
     }
     // If the chains are specified, but the testnet config file does not have the specified chains, use testnet.json from axelar-cgp-solidity.
     if (testnet.length < chains.length) {
-        testnet = require('@axelar-network/axelar-cgp-solidity/info/testnet.json').filter((chain) => chains.includes(chain.name));
+        const { testnetInfo } = require('@axelar-network/axelar-local-dev');
+        testnet = [];
+        for (const chain of chains) {
+            testnet.push(testnetInfo[chain.toLowerCase()]);
+        }
+        // console.log(chains);
+        // testnet = Object.values(require('@axelar-network/axelar-cgp-solidity/info/testnet.json').chains).filter((chain) =>
+        //     chains.includes(chain.name),
+        // );
     }
 
     // temporary fix for gas service contract address
@@ -137,6 +146,40 @@ function calculateBridgeFee(source, destination, options = {}) {
 }
 
 /**
+ * Calculate total gas to cover for a express transaction using axelarjs-sdk.
+ * @param {*} source - The source chain object.
+ * @param {*} destination - The destination chain object.
+ * @param {*} options - The options to pass to the estimateGasFee function. Available options are gas token symbol, gasLimit and gasMultiplier.
+ * @returns {number} - The gas amount.
+ */
+async function calculateBridgeExpressFee(source, destination, options = {}) {
+    const api = new AxelarQueryAPI({ environment: Environment.TESTNET });
+    const { gasLimit, gasMultiplier, symbol } = options;
+
+    const response = await api.estimateGasFee(
+        CHAINS.TESTNET[source.name.toUpperCase()],
+        CHAINS.TESTNET[destination.name.toUpperCase()],
+        symbol || source.tokenSymbol,
+        gasLimit,
+        gasMultiplier,
+        '0',
+        {
+            showDetailedFees: true,
+        },
+    );
+
+    const expressMultiplier = response.apiResponse.result.express_execute_gas_adjustment_with_multiplier;
+    const floatToIntFactor = 10000;
+
+    // baseFee + executionFeeWithMultiplier + expressFee
+    return ethers.BigNumber.from(response.executionFeeWithMultiplier)
+        .mul(expressMultiplier * 2 * floatToIntFactor) // convert float to decimals
+        .div(floatToIntFactor) // convert back without losing precision.
+        .add(response.baseFee)
+        .toString();
+}
+
+/**
  * Check if the wallet is set. If not, throw an error.
  */
 function checkWallet() {
@@ -197,5 +240,6 @@ module.exports = {
     checkEnv,
     calculateBridgeFee,
     getExamplePath,
+    calculateBridgeExpressFee,
     // sanitizeEventArgs,
 };

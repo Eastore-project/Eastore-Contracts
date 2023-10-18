@@ -3,35 +3,83 @@
     "name": "Filecoin",
     "id": "filecoin-2",
     "chainId": 314159,
-    "gateway": "0x999117D44220F33e0441fbAb2A5aDB8FF485c54D",
     "rpc": "https://api.calibration.node.glif.io/rpc/v1",
-    "constAddressDeployer": "0x98b2920d53612483f91f12ed7754e51b4a77919e",
-    "tokenName": "tFil",
-    "tokenSymbol": "TFIL",
-    "gasReceiver": "0xbE406F0189A0B4cf3A05C286473D23791Dd44Cc6",
+    "tokenSymbol": "FIL",
+    "contracts": {
+      "ConstAddressDeployer": {
+        "address": "0x98B2920D53612483F91F12Ed7754E51b4A77919e"
+      },
+      "AxelarGateway": {
+        "address": "0x999117D44220F33e0441fbAb2A5aDB8FF485c54D",
+        "implementation": "0xD2ed9ACBd2Acba9CA3EA60b9Eb7652698598bC53",
+        "authModule": "0x57441fFa88C5F311aeC600bcaC15666198C82B52",
+        "tokenDeployer": "0x364a9f84cD5A0fB88E1953a2fB70F676c284D57C",
+        "deployer": "0xB8Cd93C83A974649D76B1c19f311f639e62272BC"
+      },
+      "AxelarGasService": {
+        "collector": "0x7F83F5cA2AE4206AbFf8a3C3668e88ce5F11C0B5",
+        "address": "0xbe406f0189a0b4cf3a05c286473d23791dd44cc6",
+        "implementation": "0x125AAf72B24a78f7aE5Cae92D7717f533633320d",
+        "deployer": "0x5b593E7b1725dc6FcbbFe80b2415B19153F94A85",
+        "owner": "0x6f24A47Fc8AE5441Eb47EFfC3665e70e69Ac3F05"
+      },
+      "AxelarDepositService": {
+        "wrappedSymbol": "",
+        "refundIssuer": "0x4f671f34d2d23fec3eE3087E3A0221f8D314D9dF",
+        "salt": "AxelarDepositService",
+        "address": "0xc1DCb196BA862B337Aa23eDA1Cb9503C0801b955",
+        "implementation": "0xd883C8bA523253c93d97b6C7a5087a7B5ff23d79",
+        "deployer": "0xd55cd98cdE61c3CcE1286F9aF50cDbF16f5dba5b"
+      },
+      "Create3Deployer": {
+        "salt": "Create3Deployer",
+        "address": "0xf49B10ccFB7D82C3a8749fFB1aAF3e0c936Eba36",
+        "deployer": "0x6f24A47Fc8AE5441Eb47EFfC3665e70e69Ac3F05",
+        "deploymentMethod": "create2"
+      },
+      "InterchainTokenService": {
+        "salt": "ITS v0.3.0",
+        "deployer": "0x6f24A47Fc8AE5441Eb47EFfC3665e70e69Ac3F05",
+        "tokenManagerDeployer": "0x6Aa459645b696108894C7548A898192E4716Ef15",
+        "standardizedTokenLockUnlock": "0x3a27e5d92C50C022510B74D2eBc53956E3b3cAd6",
+        "standardizedTokenMintBurn": "0x9b63b458cD214C3786f117aD3d2821a9aC8E4201",
+        "standardizedTokenDeployer": "0x6c6632071c792f7F73BBC404A1FD1973e60B8C0C",
+        "remoteAddressValidatorImplementation": "0x33FEfaaD1D97d82C930B2d920613c8697787823D",
+        "remoteAddressValidator": "0x30c8dffBfb0f0535A1B56A7D00d5627692B399D5",
+        "tokenManagerImplementations": {
+          "tokenManagerLockUnlock": "0xADE0d3f7E7325219610907F80e7438CD22B0d27D",
+          "tokenManagerMintBurn": "0x2dF7688066d10e6aAEd5116814eB0f701cF6F74f",
+          "tokenManagerLiquidityPool": "0x5D16dFFFb32889eB4d023030FD63B598334C9C90"
+        },
+        "implementation": "0x6f7F028e83696498233EdB778Abe858D8c63d85b",
+        "address": "0xF786e21509A9D50a9aFD033B5940A2b7D872C208"
+      },
+      "InterchainProposalSender": {
+        "address": "0x1f8A4d195B647647c7dD45650CBd553FD33cCAA6",
+        "deployer": "0x6f24A47Fc8AE5441Eb47EFfC3665e70e69Ac3F05",
+        "deploymentMethod": "create3",
+        "salt": "InterchainProposalSender v1.2"
+      },
+      "Operators": {
+        "owner": "0xB8Cd93C83A974649D76B1c19f311f639e62272BC",
+        "address": "0x7F83F5cA2AE4206AbFf8a3C3668e88ce5F11C0B5",
+        "deployer": "0xB8Cd93C83A974649D76B1c19f311f639e62272BC",
+        "deploymentMethod": "create2",
+        "salt": "Operators"
+      }
+    },
+    "explorer": {
+      "url": "https://calibration.filfox.info"
+    },
+    "gasOptions": {
+      "gasLimit": 300000000
+    },
+    "confirmations": 1,
     "AxelarGasService": {
       "address": "0xbE406F0189A0B4cf3A05C286473D23791Dd44Cc6"
     },
-    "AxelarDepositService": {
-      "salt": "AxelarDepositService",
-      "wrappedSymbol": "",
-      "refundIssuer": "0x4f671f34d2d23fec3eE3087E3A0221f8D314D9dF",
-      "address": "0xc1DCb196BA862B337Aa23eDA1Cb9503C0801b955",
-      "implementation": "0xb6241272C569767072e0587098415DF6BA0aaEe9",
-      "deployer": "0xd55cd98cdE61c3CcE1286F9aF50cDbF16f5dba5b"
-    },
-    "GMPExpressService": {
-      "expressOperator": "0xB8Cd93C83A974649D76B1c19f311f639e62272BC",
-      "proxyDeployer": "0xfFCd49a08cda2FdF89713BFE9AE4c7355087EF58",
-      "salt": "GMPExpressService",
-      "address": "0xfb72239394647e97894585D0D93Ca91f6C3852a4",
-      "implementation": "0xF12D145c6aA170deEd2158cC33445425A7D47694",
-      "deployer": "0xA57ADCE1d2fE72949E4308867D894CD7E7DE0ef2"
-    },
-    "gasOptions": {
-      "gasLimit": 2000000000
-    },
-    "gasService": "0xbE406F0189A0B4cf3A05C286473D23791Dd44Cc6",
+    "gateway": "0x999117D44220F33e0441fbAb2A5aDB8FF485c54D",
+    "gasService": "0xbe406f0189a0b4cf3a05c286473d23791dd44cc6",
     "contract": {
       "abi": [
         "constructor(address gateway_, address gasReciever_)",
@@ -72,7 +120,7 @@
         "function updateActivationStatus(bytes pieceCid)",
         "function withdrawBalance(address client, uint256 value) returns (uint256)"
       ],
-      "address": "0x4bAF83779710ca022376f5c1136Fe346834B4952"
+      "address": "0x469c59A98aA68BE37D11e1003cAe13B470FBb3ed"
     }
   }
 ]
