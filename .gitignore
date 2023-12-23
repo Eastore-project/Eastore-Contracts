@@ -13,4 +13,5 @@ aptos-artifacts
 
 .vscode
 chain-config/*.json
+chain-config-filecoin/*.json
 

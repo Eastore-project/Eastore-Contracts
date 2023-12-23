@@ -11,13 +11,14 @@ async function deploy(chain, wallet) {
     console.log(`Deploying CrossDeal for ${chain.name}.`);
     chain.contract = await deployContract(wallet, CrossDeal, [chain.gateway, chain.gasService]);
     chain.wallet = wallet;
-    console.log(`Deployed CrossDeal for ${chain.name} at ${chain.contract.address}.`);
+    console.log(`Deployed CrossDeal for ${chain.name} at ${chain.contract.address}`);
 }
 
 async function execute(chains, wallet, options) {
     const { source, destination, calculateBridgeFee } = options;
 
     const fee = await calculateBridgeFee(source, destination);
+    // These are demo deal params to make a cross-chain deals. You can obtain params for your file here https://data.lighthouse.storage/
     const commP = 'baga6ea4seaqowx4psaz6gic22zwbd6pdo5jlxiankvofjrqcnxotf6f6inpeshi';
     const cid = new CID(commP);
 
@@ -33,8 +34,8 @@ async function execute(chains, wallet, options) {
         true, //taskArgs.verifiedDeal,
         commP, //taskArgs.label,
         // 520000, // startEpoch
-        1180000, // startEpoch
-        1800000, // endEpoch
+        1300000, // startEpoch
+        1900000, // endEpoch
         0, // taskArgs.storagePricePerEpoch,
         0, // taskArgs.providerCollateral,
         0, // taskArgs.clientCollateral,
