@@ -14,10 +14,10 @@
         "solidity-coverage": "^0.8.4"
     },
     "dependencies": {
-        "@axelar-network/axelar-chains-config": "^0.1.0",
-        "@axelar-network/axelar-gmp-sdk-solidity": "^5.4.0",
-        "@axelar-network/axelar-local-dev": "^2.1.1-alpha.2",
-        "@axelar-network/axelarjs-sdk": "^0.12.8",
+        "@axelar-network/axelar-chains-config": "^1.2.0",
+        "@axelar-network/axelar-gmp-sdk-solidity": "^5.9.0",
+        "@axelar-network/axelar-local-dev": "2.3.2",
+        "@axelar-network/axelarjs-sdk": "^0.15.0",
         "@openzeppelin/contracts": "^4.9.3",
         "@zondax/filecoin-solidity": "^4.0.3",
         "cids": "^1.1.9",

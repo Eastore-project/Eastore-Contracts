@@ -193,7 +193,7 @@ function checkWallet() {
  * @param {*} env - The environment to check. Available options are 'local' and 'testnet'.
  */
 function checkEnv(env) {
-    if (env == null || (env !== 'testnet' && env !== 'local')) {
+    if (env == null || (env !== 'testnet' && env !== 'local' && env != 'mainnet')) {
         throw new Error('Need to specify testnet or local as an argument to this script.');
     }
 }
